@@ -7,3 +7,5 @@ count(*) over (partition by customers.id) as number_of_orders
 from `analytics-engineers-club.coffee_shop.customers` as customers
 left join `analytics-engineers-club.coffee_shop.orders` as orders
 on ( customers.id = orders.customer_id )
+order by first_order_at
+limit 5customers.sql
