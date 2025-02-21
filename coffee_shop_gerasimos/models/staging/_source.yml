@@ -1,0 +1,31 @@
+version: 2
+
+sources:
+  - name: coffee_shop
+    database: analytics-engineers-club
+    freshness: null
+    tables:
+      - name: customers
+        columns:
+          - name: id
+            data_type: integer
+          - name: name
+            data_type: string
+          - name: email
+            data_type: string
+      - name: orders
+        columns:
+          - name: id
+            data_type: integer
+          - name: created_at
+            data_type: timestamp
+          - name: customer_id
+            data_type: string
+          - name: total
+            data_type: integer
+          - name: address
+            data_type: string
+          - name: state
+            data_type: string
+          - name: zip
+            data_type: integer
