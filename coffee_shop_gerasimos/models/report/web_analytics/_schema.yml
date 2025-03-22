@@ -1,0 +1,28 @@
+version: 2
+
+models:
+  - name: rpt_ltv_customer_weekly_revenue
+    description: >
+      Reporting model that shows each customer's weekly and cumulative revenue 
+      since acquisition. Used to build LTV cohort curves.
+    columns:
+      - name: customer_id
+        description: "ID of the customer"
+        tests:
+          - not_null
+      - name: week_number
+        description: "Week since customer acquisition (starts at 1)"
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              expression: "week_number >= 1"
+      - name: revenue
+        description: "Revenue from this customer in this week"
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "revenue >= 0"
+      - name: cumulative_revenue
+        description: "Cumulative revenue from this customer as of this week"
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "cumulative_revenue >= 0"

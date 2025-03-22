@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_pageviews_stitched
+    description: >
+      Staging model for pageviews that replaces visitor_id with customer_id 
+      when available, to allow user stitching across devices.
+    columns:
+      - name: visitor_id
+        description: "Unified identifier for the visitor (stitched with customer_id if available)"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Known customer ID if the user is signed in"
+      - name: page_url
+        description: "URL or path of the page visited"
+      - name: device_type
+        description: "Device type used during the pageview"
+      - name: created_at
+        description: "Timestamp when the pageview occurred"
+        tests:
+          - not_null

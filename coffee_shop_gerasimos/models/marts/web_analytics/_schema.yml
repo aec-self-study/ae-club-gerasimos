@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: fct_sessions
+    description: >
+      Fact table with one row per user session. Includes session start and end time, duration,
+      pageviews count, and whether the session ended in a checkout.
+    columns:
+      - name: session_id
+        description: "Unique session identifier composed of visitor_id and session number"
+        tests:
+          - unique
+          - not_null
+      - name: visitor_id
+        description: "Unified visitor identifier stitched across devices"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Customer ID if visitor is signed in"
+      - name: session_start_time
+        description: "Timestamp of the first pageview in the session"
+        tests:
+          - not_null
+      - name: session_end_time
+        description: "Timestamp of the last pageview in the session"
+        tests:
+          - not_null
+      - name: session_length_seconds
+        description: "Duration of the session in seconds"
+        tests:
+          - not_null
+      - name: number_of_pageviews
+        description: "Total number of pageviews in the session"
+        tests:
+          - not_null
+      - name: ended_in_purchase
+        description: "Boolean (1/0) indicating whether session ended in checkout"
+models:
+  - name: dim_session
+    description: >
+      Session dimension table providing descriptive metadata for each session. 
+      Includes entry and exit pages, number of distinct pages visited, and device variety.
+    columns:
+      - name: session_id
+        description: "Unique identifier for the session"
+        tests:
+          - unique
+          - not_null
+      - name: visitor_id
+        description: "Stitched visitor ID for the session"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Customer ID if known"
+      - name: entry_page
+        description: "First page visited in the session"
+      - name: exit_page
+        description: "Last page visited in the session"
+      - name: number_of_distinct_pages
+        description: "Count of distinct pages visited during the session"
+      - name: used_multiple_devices
+        description: "True if more than one device type was used in the session"
