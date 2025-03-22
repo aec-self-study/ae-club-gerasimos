@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: int_pageviews_with_sessions
+    description: >
+      Intermediate model that defines sessions based on 30-minute gaps 
+      in browsing activity per visitor. Adds session_id, start and end times.
+    columns:
+      - name: session_id
+        description: "Unique identifier for a session, based on visitor_id and session number"
+        tests:
+          - not_null
+      - name: visitor_id
+        description: "Unified visitor identifier (stitched across devices)"
+        tests:
+          - not_null
+      - name: customer_id
+        description: "Customer ID if the visitor is logged in"
+      - name: page_url
+        description: "URL of the visited page"
+      - name: device_type
+        description: "Device type used during the pageview"
+      - name: created_at
+        description: "Timestamp of the pageview event"
+        tests:
+          - not_null
+      - name: session_start_time
+        description: "Timestamp of the first pageview in the session"
+        tests:
+          - not_null
+      - name: session_end_time
+        description: "Timestamp of the last pageview in the session"
+        tests:
+          - not_null

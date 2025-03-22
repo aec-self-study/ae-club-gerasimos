@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: web_tracking
+    database: analytics-engineers-club
+    tables:
+      - name: pageviews
+        description: "Raw web tracking data capturing pageviews and basic user/device info."
+        columns:
+          - name: id
+            description: "Internal identifier for the pageview event"
+          - name: visitor_id
+            description: "Anonymous identifier for the visitor (cookie-based)"
+            tests:
+              - not_null
+          - name: device_type
+            description: "Type of device used (e.g., mobile, desktop)"
+          - name: timestamp
+            description: "Timestamp when the pageview occurred"
+            tests:
+              - not_null
+          - name: page
+            description: "URL or page path visited"
+          - name: customer_id
+            description: "Customer ID if the visitor is signed in"
