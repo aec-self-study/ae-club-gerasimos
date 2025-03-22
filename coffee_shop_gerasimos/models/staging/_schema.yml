@@ -3,15 +3,13 @@ version: 2
 models:
   - name: stg_customers
     columns:
-      - name: id
+      - name: customer_id
         data_type: integer
-      - name: name
-        data_type: string
-      - name: email
-        data_type: string
+      - name: has_email
+        data_type: boolean
   - name: stg_orders
     columns:
-      - name: id
+      - name: order_id
         data_type: integer
       - name: created_at
         data_type: timestamp
@@ -21,5 +19,33 @@ models:
         data_type: integer
       - name: state
         data_type: string
-      - name: zip
+  - name: stg_order_items
+    columns:
+      - name: order_item_id
         data_type: integer
+      - name: order_id
+        data_type: integer
+      - name: product_id
+        data_type: integer
+  - name: stg_product_prices
+    columns:
+      - name: product_price_id
+        data_type: integer
+      - name: product_id
+        data_type: integer
+      - name: price
+        data_type: integer
+      - name: created_at
+        data_type: timestamp
+      - name: ended_at
+        data_type: timestamp
+  - name: stg_products
+    columns:
+      - name: product_id
+        data_type: integer
+      - name: product_name
+        data_type: string
+      - name: product_category
+        data_type: string
+      - name: product_created_date
+        data_type: date

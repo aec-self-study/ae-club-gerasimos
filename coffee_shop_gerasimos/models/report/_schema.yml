@@ -1,0 +1,58 @@
+version: 2
+
+models:
+
+  - name: rpt_weekly_revenue_by_category
+    description: >
+      Weekly aggregated revenue split by product category.
+      Based on the order item-level fact table and enriched with product category from the product dimension.
+    columns:
+      - name: week_start
+        description: "Start of the week (Sunday) in which the revenue was generated"
+        tests:
+          - not_null
+      - name: product_category
+        description: "The category of the product (e.g., espresso, pastry, etc.)"
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Sum of item-level revenue for the given week and category"
+        tests:
+          - not_null
+
+  - name: rpt_weekly_revenue_by_customer_type
+    description: >
+      Weekly aggregated revenue split between new and returning customers.
+      Customer type is determined based on whether the order occurred within 7 days of their first purchase.
+    columns:
+      - name: week_start
+        description: "Start of the week (Sunday) in which the revenue was generated"
+        tests:
+          - not_null
+      - name: customer_type
+        description: "Classification of customer as 'new' (within 7 days of first order) or 'returning'"
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Sum of item-level revenue for the given week and customer type"
+        tests:
+          - not_null
+  - name: rpt_customer_behavior_summary
+    description: >
+      Summary report with one row per customer, showing their email status, 
+      first order timestamp, and total number of distinct orders placed.
+    columns:
+      - name: customer_id
+        description: "Unique ID for the customer"
+        tests:
+          - not_null
+      - name: has_email
+        description: "Whether the customer has provided an email address"
+      - name: first_order_at
+        description: "Timestamp of the customer's first recorded order"
+        tests:
+          - not_null
+      - name: number_of_orders
+        description: "Count of unique orders placed by the customer"
+        tests:
+          - not_null
